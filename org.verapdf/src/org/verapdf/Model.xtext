@@ -1,0 +1,44 @@
+grammar org.verapdf.Model with org.eclipse.xtext.common.Terminals
+
+generate model "http://www.verapdf.org/Model"
+
+Model:
+	'package' name = QualifiedName';'
+	(imports+=Import)*
+	(elements+=Entity)*
+;
+
+Entity:
+	(comment = COMMENT)?
+	'type' name = ID ('extends' superType = [Entity | QualifiedName])? '{'
+		(attributes += Attribute)*
+	'}'
+;
+
+Attribute:
+	Property | Link
+;
+
+Property:
+	(comment = COMMENT)?
+	'property' name = ID ':' type = ('String' | 'Integer' | 'BigDecimal' | 'Boolean')';'
+;
+
+Link:
+	(comment = COMMENT)?
+	'link' name = ID ':' type = [Entity | QualifiedName] (any ?= '*' | oneOrMore ?= '+' | zeroOrOne ?= '?')?';'
+;
+
+Import:
+	'import' importedNamespace = QualifiedNameWithWildcard ';'
+;
+
+QualifiedName:
+	ID ('.' ID)*
+;
+
+QualifiedNameWithWildcard:
+	QualifiedName '.*'?
+;
+
+terminal COMMENT	:  '%' -> '\n';

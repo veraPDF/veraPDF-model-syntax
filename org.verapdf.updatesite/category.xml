@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.verapdf.sdk_0.0.0.jar" id="org.verapdf.sdk" version="0.0.0">
+      <category name="org.verapdf"/>
+   </feature>
+   <category-def name="org.verapdf" label="VERA PDF"/>
+</site>
