@@ -1,0 +1,8 @@
+language: java
+
+jdk:
+  - oraclejdk7
+
+install:
+  - cd org.verapdf.releng
+  - mvn clean install -DskipTests
