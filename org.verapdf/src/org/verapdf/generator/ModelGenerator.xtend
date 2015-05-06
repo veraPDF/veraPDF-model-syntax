@@ -139,11 +139,35 @@ class ModelGenerator implements IGenerator {
 			}
 			
 			public static List<String> getListOfProperties(String objectName){
-				return mapOfProperties.get(objectName);
+				List<String> res = new ArrayList<String>();
+				
+				String currentObject = objectName;
+				
+				while(currentObject != null){
+					for(String prop : mapOfProperties.get(currentObject)){
+						res.add(prop);
+					}
+					
+					currentObject = mapOfSuperNames.get(currentObject);
+				}
+				
+				return res;
 			}
 			
 			public static List<String> getListOfLinks(String objectName){
-				return mapOfLinks.get(objectName);
+				List<String> res = new ArrayList<String>();
+				
+				String currentObject = objectName;
+				
+				while(currentObject != null){
+					for(String link : mapOfLinks.get(currentObject)){
+						res.add(link);
+					}
+					
+					currentObject = mapOfSuperNames.get(currentObject);
+				}
+				
+				return res;
 			}
 		
 			static {
@@ -172,10 +196,10 @@ class ModelGenerator implements IGenerator {
 				links = new ArrayList<String>();
 				«FOR link: e.attributes»
 					«IF link instanceof Link»
-						properties.add("«link.name»");
+						links.add("«link.name»");
 					«ENDIF»
 				«ENDFOR»
-				mapOfProperties.put("«e.name»",links);
+				mapOfLinks.put("«e.name»",links);
 				«ENDFOR»
 			}
 			
