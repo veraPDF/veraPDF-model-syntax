@@ -34,14 +34,14 @@ class ModelGenerator implements IGenerator {
 		
 		val JavaIoFileSystemAccess fsa1 = fsa as JavaIoFileSystemAccess
 		try{
-		val CharSequence is = fsa1.readTextFile("org/verapdf/model/DependencyHelper.java")
+		val CharSequence is = fsa1.readTextFile("org/verapdf/model/ModelHelper.java")
 			fsa.generateFile(
-			"org/verapdf/model/DependencyHelper.java",
-			is.toString.substring(0,is.toString.length - 2) + resource.appendDependenceClass			
+			"org/verapdf/model/ModelHelper.java",
+			is.toString.substring(0,is.toString.length - 6) + resource.appendDependenceClass			
 			)
 		}catch(Exception e){
 			fsa.generateFile(
-			"org/verapdf/model/DependencyHelper.java",
+			"org/verapdf/model/ModelHelper.java",
 			resource.getDependenceClass			
 			)
 		}
@@ -63,7 +63,12 @@ class ModelGenerator implements IGenerator {
 		«ENDIF»
 		public interface «entity.name»«IF entity.superType != null» extends «entity.superType.name»«ENDIF» {
 			
-			«IF entity.superType == null»public List<«entity.name»> getAllLinks();«ENDIF»
+			«IF entity.superType == null»
+			public List<String> getLinks();
+			public List<«entity.name»> getLinkedObjects(String linkName);
+			public List<String> getSuperTypes();
+			public List<String> getProperties();
+			«ENDIF»
 		«FOR attribute : entity.attributes»
 		
 			«attribute.generateGetter»
@@ -72,14 +77,11 @@ class ModelGenerator implements IGenerator {
 	'''
 	
 	def generateGetter (Attribute attribute) '''
+		«IF (attribute instanceof Property)»
 		«IF (attribute.comment != null)»
 			«toJavaDocComment(attribute.comment)»
 		«ENDIF»
-		«IF (attribute instanceof Link)»
-			public List<«attribute.type.name»> get«attribute.name»();
-		«ENDIF»
-		«IF (attribute instanceof Property)»
-			public «attribute.type» get«attribute.name»();
+		public «attribute.type» get«attribute.name»();
 		«ENDIF»
 	'''
 	
@@ -106,9 +108,12 @@ class ModelGenerator implements IGenerator {
 		/**
 		* This class represents names of superinterfaces and names of all properties for all generated interfaces.
 		*/
-		public class DependencyHelper {
+		public class ModelHelper {
 			private final static Map<String, String> mapOfSuperNames = new HashMap<String, String>();
 			private final static Map<String, List<String>> mapOfProperties = new HashMap<String, List<String>>();
+			private final static Map<String, List<String>> mapOfLinks = new HashMap<String, List<String>>();
+			private static List<String> properties;
+			private static List<String> links;
 			
 			public static Map<String,String> getMapOfSuperNames(){
 				return mapOfSuperNames;
@@ -118,17 +123,20 @@ class ModelGenerator implements IGenerator {
 				return mapOfProperties;
 			}
 			
+			public static Map<String,List<String>> getMapOfLinks(){
+				return mapOfLinks;
+			}
+		
+			static {
 		«resource.appendDependenceClass»
 	'''
 	
 	def appendDependenceClass (Resource resource) '''
 			
-			static {
 				«FOR e: resource.allContents.toIterable.filter(Entity)»
 				mapOfSuperNames.put("«e.name»",«IF e.superType == null»null«ELSE»"«e.superType.name»"«ENDIF»);
 				«ENDFOR»
 				
-				List<String> properties;
 				«FOR e: resource.allContents.toIterable.filter(Entity)»
 				
 				properties = new ArrayList<String>();
@@ -138,6 +146,17 @@ class ModelGenerator implements IGenerator {
 					«ENDIF»
 				«ENDFOR»
 				mapOfProperties.put("«e.name»",properties);
+				«ENDFOR»
+				
+				«FOR e: resource.allContents.toIterable.filter(Entity)»
+				
+				links = new ArrayList<String>();
+				«FOR link: e.attributes»
+					«IF link instanceof Link»
+						properties.add("«link.name»");
+					«ENDIF»
+				«ENDFOR»
+				mapOfProperties.put("«e.name»",links);
 				«ENDFOR»
 			}
 			

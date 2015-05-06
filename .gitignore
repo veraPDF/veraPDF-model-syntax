@@ -5,3 +5,5 @@
 **/xtend-gen/
 **/target/
 **/model/
+/.idea/**
+*.iml
