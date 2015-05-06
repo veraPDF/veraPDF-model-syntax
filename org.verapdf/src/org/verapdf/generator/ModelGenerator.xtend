@@ -12,6 +12,7 @@ import org.verapdf.model.Property
 import org.verapdf.model.Import
 import java.util.List
 import java.util.ArrayList
+import org.eclipse.xtext.generator.JavaIoFileSystemAccess
 
 /**
  * Generates code from your model files on save.4
@@ -30,6 +31,21 @@ class ModelGenerator implements IGenerator {
 				compile(e, imports)
 			)
 		}
+		
+		val JavaIoFileSystemAccess fsa1 = fsa as JavaIoFileSystemAccess
+		try{
+		val CharSequence is = fsa1.readTextFile("org/verapdf/model/DependencyHelper.java")
+			fsa.generateFile(
+			"org/verapdf/model/DependencyHelper.java",
+			is.toString.substring(0,is.toString.length - 2) + resource.appendDependenceClass			
+			)
+		}catch(Exception e){
+			fsa.generateFile(
+			"org/verapdf/model/DependencyHelper.java",
+			resource.getDependenceClass			
+			)
+		}
+		
 	}
 	
 	def compile(Entity entity, List<Import> imports) '''
@@ -40,11 +56,14 @@ class ModelGenerator implements IGenerator {
 		«FOR imp : imports»
 			import «imp.importedNamespace»;
 		«ENDFOR»
+		«IF entity.superType == null»import java.util.List;«ENDIF»
 				
 		«IF (entity.comment != null)»
 		«toJavaDocComment(entity.comment)»
 		«ENDIF»
 		public interface «entity.name»«IF entity.superType != null» extends «entity.superType.name»«ENDIF» {
+			
+			«IF entity.superType == null»public List<«entity.name»> getAllLinks();«ENDIF»
 		«FOR attribute : entity.attributes»
 		
 			«attribute.generateGetter»
@@ -78,4 +97,50 @@ class ModelGenerator implements IGenerator {
 			public List<«attribute.type.name.toInterfaceName»> get«attribute.name»();
 		«ENDIF»
 */
+
+	def getDependenceClass (Resource resource) '''
+		package org.verapdf.model;
+		
+		import java.util.*;
+		
+		/**
+		* This class represents names of superinterfaces and names of all properties for all generated interfaces.
+		*/
+		public class DependencyHelper {
+			private final static Map<String, String> mapOfSuperNames = new HashMap<String, String>();
+			private final static Map<String, List<String>> mapOfProperties = new HashMap<String, List<String>>();
+			
+			public static Map<String,String> getMapOfSuperNames(){
+				return mapOfSuperNames;
+			}
+			
+			public static Map<String,List<String>> getMapOfProperties(){
+				return mapOfProperties;
+			}
+			
+		«resource.appendDependenceClass»
+	'''
+	
+	def appendDependenceClass (Resource resource) '''
+			
+			static {
+				«FOR e: resource.allContents.toIterable.filter(Entity)»
+				mapOfSuperNames.put("«e.name»",«IF e.superType == null»null«ELSE»"«e.superType.name»"«ENDIF»);
+				«ENDFOR»
+				
+				List<String> properties;
+				«FOR e: resource.allContents.toIterable.filter(Entity)»
+				
+				properties = new ArrayList<String>();
+				«FOR prop: e.attributes»
+					«IF prop instanceof Property»
+						properties.add("«prop.name»");
+					«ENDIF»
+				«ENDFOR»
+				mapOfProperties.put("«e.name»",properties);
+				«ENDFOR»
+			}
+			
+		}
+	'''
 }
