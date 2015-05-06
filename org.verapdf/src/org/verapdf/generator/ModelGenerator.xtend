@@ -13,6 +13,7 @@ import org.verapdf.model.Import
 import java.util.List
 import java.util.ArrayList
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess
+import org.eclipse.xtext.util.RuntimeIOException
 
 /**
  * Generates code from your model files on save.4
@@ -33,11 +34,13 @@ class ModelGenerator implements IGenerator {
 		}
 		
 		val JavaIoFileSystemAccess fsa1 = fsa as JavaIoFileSystemAccess
+		
 		try{
-		val CharSequence is = fsa1.readTextFile("org/verapdf/model/ModelHelper.java")
-			
-			var index = is.toString.findIndexForCut
-			
+			val CharSequence is = fsa1.readTextFile("org/verapdf/model/ModelHelper.java")
+
+			var index = is.toString.lastIndexOf('}')
+			index = is.toString.substring(0, index).lastIndexOf('}')
+
 			fsa.generateFile(
 			"org/verapdf/model/ModelHelper.java",
 			is.toString.substring(0,index) + resource.appendDependenceClass			
@@ -49,16 +52,6 @@ class ModelGenerator implements IGenerator {
 			)
 		}
 		
-	}
-	
-	def findIndexForCut(String str){
-		var j = str.lastIndexOf('}')
-		for (var i = j-1; i>=0; i--){
-			if (str.charAt(i) == '}'){
-				j=i
-				return j
-			}
-		}
 	}
 	
 	def compile(Entity entity, List<Import> imports) '''
@@ -121,23 +114,36 @@ class ModelGenerator implements IGenerator {
 		/**
 		* This class represents names of superinterfaces and names of all properties for all generated interfaces.
 		*/
-		public class ModelHelper {
+		public final class ModelHelper {
 			private final static Map<String, String> mapOfSuperNames = new HashMap<String, String>();
 			private final static Map<String, List<String>> mapOfProperties = new HashMap<String, List<String>>();
 			private final static Map<String, List<String>> mapOfLinks = new HashMap<String, List<String>>();
 			private static List<String> properties;
 			private static List<String> links;
 			
-			public static Map<String,String> getMapOfSuperNames(){
-				return mapOfSuperNames;
+			private ModelHelper(){
+				
 			}
 			
-			public static Map<String,List<String>> getMapOfProperties(){
-				return mapOfProperties;
+			public static List<String> getListOfSuperNames(String objectName){
+				List<String> res = new ArrayList<String>();
+				
+				String currentObject = mapOfSuperNames.get(objectName);
+				
+				while(currentObject != null){
+					res.add(currentObject);
+					currentObject = mapOfSuperNames.get(currentObject);
+				}
+				
+				return res;
 			}
 			
-			public static Map<String,List<String>> getMapOfLinks(){
-				return mapOfLinks;
+			public static List<String> getListOfProperties(String objectName){
+				return mapOfProperties.get(objectName);
+			}
+			
+			public static List<String> getListOfLinks(String objectName){
+				return mapOfLinks.get(objectName);
 			}
 		
 			static {
