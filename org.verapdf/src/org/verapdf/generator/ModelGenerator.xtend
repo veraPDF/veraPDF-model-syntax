@@ -35,9 +35,12 @@ class ModelGenerator implements IGenerator {
 		val JavaIoFileSystemAccess fsa1 = fsa as JavaIoFileSystemAccess
 		try{
 		val CharSequence is = fsa1.readTextFile("org/verapdf/model/ModelHelper.java")
+			
+			var index = is.toString.findIndexForCut
+			
 			fsa.generateFile(
 			"org/verapdf/model/ModelHelper.java",
-			is.toString.substring(0,is.toString.length - 6) + resource.appendDependenceClass			
+			is.toString.substring(0,index) + resource.appendDependenceClass			
 			)
 		}catch(Exception e){
 			fsa.generateFile(
@@ -46,6 +49,16 @@ class ModelGenerator implements IGenerator {
 			)
 		}
 		
+	}
+	
+	def findIndexForCut(String str){
+		var j = str.lastIndexOf('}')
+		for (var i = j-1; i>=0; i--){
+			if (str.charAt(i) == '}'){
+				j=i
+				return j
+			}
+		}
 	}
 	
 	def compile(Entity entity, List<Import> imports) '''
