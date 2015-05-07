@@ -71,7 +71,7 @@ class ModelGenerator implements IGenerator {
 			
 			«IF entity.superType == null»
 			public List<String> getLinks();
-			public List<«entity.name»> getLinkedObjects(String linkName);
+			public List<? extends «entity.name»> getLinkedObjects(String linkName);
 			public List<String> getSuperTypes();
 			public List<String> getProperties();
 			«ENDIF»
