@@ -74,6 +74,7 @@ class ModelGenerator implements IGenerator {
 			public List<? extends «entity.name»> getLinkedObjects(String linkName);
 			public List<String> getSuperTypes();
 			public List<String> getProperties();
+			public Boolean contextDepended();
 			«ENDIF»
 		«FOR attribute : entity.attributes»
 		
