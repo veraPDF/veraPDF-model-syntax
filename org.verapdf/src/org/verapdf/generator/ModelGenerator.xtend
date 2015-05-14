@@ -196,7 +196,9 @@ class ModelGenerator implements IGenerator {
 				links = new ArrayList<String>();
 				«FOR link: e.attributes»
 					«IF link instanceof Link»
+					«IF link.type.name.startsWith("Cos")»
 						links.add("«link.name»");
+					«ENDIF»
 					«ENDIF»
 				«ENDFOR»
 				mapOfLinks.put("«e.name»",links);
