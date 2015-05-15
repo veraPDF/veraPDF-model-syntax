@@ -52,6 +52,11 @@ class ModelGenerator implements IGenerator {
 			)
 		}
 		
+		fsa.generateFile(
+		"org/verapdf/model/GenericModelObject.java",
+		generateGenericModelObject			
+		)
+		
 	}
 	
 	def compile(Entity entity, List<Import> imports) '''
@@ -74,7 +79,9 @@ class ModelGenerator implements IGenerator {
 			public List<? extends «entity.name»> getLinkedObjects(String linkName);
 			public List<String> getSuperTypes();
 			public List<String> getProperties();
-			public Boolean contextDepended();
+			public String getType();
+			public String getID();
+			public Boolean isContextDependent();
 			«ENDIF»
 		«FOR attribute : entity.attributes»
 		
@@ -126,6 +133,10 @@ class ModelGenerator implements IGenerator {
 				
 			}
 			
+			/**
+			* @param objectName - the name of the object
+			* @return List of supernames for the given object
+			*/
 			public static List<String> getListOfSuperNames(String objectName){
 				List<String> res = new ArrayList<String>();
 				
@@ -139,6 +150,10 @@ class ModelGenerator implements IGenerator {
 				return res;
 			}
 			
+			/**
+			* @param objectName - the name of the object
+			* @return List of names of properties for the given object
+			*/
 			public static List<String> getListOfProperties(String objectName){
 				List<String> res = new ArrayList<String>();
 				
@@ -155,6 +170,10 @@ class ModelGenerator implements IGenerator {
 				return res;
 			}
 			
+			/**
+			* @param objectName - the name of the object
+			* @return List of names of links for the given object
+			*/
 			public static List<String> getListOfLinks(String objectName){
 				List<String> res = new ArrayList<String>();
 				
@@ -206,6 +225,59 @@ class ModelGenerator implements IGenerator {
 				«ENDFOR»
 			}
 			
+		}
+	'''
+	
+	def generateGenericModelObject() '''
+		package org.verapdf.model;
+		
+		import org.verapdf.model.baselayer.Object;
+		import java.util.*;
+		
+		public abstract class GenericModelObject implements Object {
+			
+			protected Boolean contextDependent = false;
+			
+			/**
+			* @param link - the name of a link
+			* @return List of objects with the given link
+			*/
+			@Override
+			public List<? extends Object> getLinkedObjects(String link) {
+		        throw new IllegalAccessError(this.getType() + " has not access to this method or has not " + link + " link.");
+		    }
+		
+			/**
+			* @return List of names of links for {@code this} object
+			*/
+		    @Override
+		    public List<String> getLinks() {
+		        return ModelHelper.getListOfLinks(this.getType());
+		    }
+		
+			/**
+			* @return List of names of properties for {@code this} object
+			*/
+		    @Override
+		    public List<String> getProperties() {
+		        return ModelHelper.getListOfProperties(this.getType());
+		    }
+		
+			/**
+			* @return null, if we have not know yet is this object context dependet of not. true, if this object is context dependent. false, if this object is not context dependent.
+			*/
+		    @Override
+		    public Boolean isContextDependent() {
+		        return contextDependent;
+		    }
+		
+			/**
+			* @return List of supernames for {@code this} object
+			*/
+		    @Override
+		    public List<String> getSuperTypes() {
+		        return ModelHelper.getListOfSuperNames(this.getType());
+		    }
 		}
 	'''
 }
