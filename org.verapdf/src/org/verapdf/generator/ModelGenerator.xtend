@@ -22,6 +22,11 @@ import org.eclipse.xtext.util.RuntimeIOException
  */
 class ModelGenerator implements IGenerator {
 	
+	val HELP_CLASSES_PASS = "org/verapdf/model/"
+	val HELP_CLASSES_PACKAGE = "org.verapdf.model"
+	val MODEL_HELPER_NAME = "ModelHelper"
+	val GENERICMODELOBJECT_NAME = "GenericModelObject"
+	
 	@Inject extension IQualifiedNameProvider
 
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
@@ -31,31 +36,33 @@ class ModelGenerator implements IGenerator {
 				e.fullyQualifiedName.toString("/") + ".java",
 				compile(e, imports)
 			)
+			
+			if(e.name.equals("Object")){
+				fsa.generateFile(
+					HELP_CLASSES_PASS + GENERICMODELOBJECT_NAME + ".java",
+					e.generateGenericModelObject			
+				)
+			}
 		}
 		
 		val JavaIoFileSystemAccess fsa1 = fsa as JavaIoFileSystemAccess
 		
 		try{
-			val CharSequence is = fsa1.readTextFile("org/verapdf/model/ModelHelper.java")
+			val CharSequence is = fsa1.readTextFile(HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java")
 
 			var index = is.toString.lastIndexOf('}')
 			index = is.toString.substring(0, index).lastIndexOf('}')
 
 			fsa.generateFile(
-			"org/verapdf/model/ModelHelper.java",
+			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
 			is.toString.substring(0,index) + resource.appendDependenceClass			
 			)
 		}catch(Exception e){
 			fsa.generateFile(
-			"org/verapdf/model/ModelHelper.java",
+			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
 			resource.getDependenceClass			
 			)
 		}
-		
-		fsa.generateFile(
-		"org/verapdf/model/GenericModelObject.java",
-		generateGenericModelObject			
-		)
 		
 	}
 	
@@ -67,6 +74,7 @@ class ModelGenerator implements IGenerator {
 		«FOR imp : imports»
 			import «imp.importedNamespace»;
 		«ENDFOR»
+		
 		«IF entity.superType == null»import java.util.List;«ENDIF»
 				
 		«IF (entity.comment != null)»
@@ -115,14 +123,14 @@ class ModelGenerator implements IGenerator {
 */
 
 	def getDependenceClass (Resource resource) '''
-		package org.verapdf.model;
+		package «HELP_CLASSES_PACKAGE»;
 		
 		import java.util.*;
 		
 		/**
 		* This class represents names of superinterfaces and names of all properties for all generated interfaces.
 		*/
-		public final class ModelHelper {
+		public final class «MODEL_HELPER_NAME» {
 			private final static Map<String, String> mapOfSuperNames = new HashMap<String, String>();
 			private final static Map<String, List<String>> mapOfProperties = new HashMap<String, List<String>>();
 			private final static Map<String, List<String>> mapOfLinks = new HashMap<String, List<String>>();
@@ -228,13 +236,13 @@ class ModelGenerator implements IGenerator {
 		}
 	'''
 	
-	def generateGenericModelObject() '''
-		package org.verapdf.model;
+	def generateGenericModelObject(Entity e) '''
+		package «HELP_CLASSES_PACKAGE»;
 		
-		import org.verapdf.model.baselayer.Object;
+		import «e.eContainer.fullyQualifiedName».«e.name»;
 		import java.util.*;
 		
-		public abstract class GenericModelObject implements Object {
+		public abstract class «GENERICMODELOBJECT_NAME» implements «e.name» {
 			
 			protected Boolean contextDependent = false;
 			
@@ -278,6 +286,20 @@ class ModelGenerator implements IGenerator {
 		    public List<String> getSuperTypes() {
 		        return ModelHelper.getListOfSuperNames(this.getType());
 		    }
+		«FOR attribute : e.attributes»
+		
+			«attribute.generateGetterForCenericModelObject»
+		«ENDFOR»
 		}
+	'''
+	
+	def generateGetterForCenericModelObject (Attribute attribute) '''
+		«IF (attribute instanceof Property)»
+		«IF (attribute.comment != null)»
+			«toJavaDocComment(attribute.comment)»
+		«ENDIF»
+		@Override
+		public abstract «attribute.type» get«attribute.name»();
+		«ENDIF»
 	'''
 }
