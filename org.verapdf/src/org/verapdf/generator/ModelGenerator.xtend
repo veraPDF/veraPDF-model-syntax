@@ -22,6 +22,11 @@ import org.eclipse.xtext.util.RuntimeIOException
  */
 class ModelGenerator implements IGenerator {
 	
+	val HELP_CLASSES_PASS = "org/verapdf/model/"
+	val HELP_CLASSES_PACKAGE = "org.verapdf.model"
+	val MODEL_HELPER_NAME = "ModelHelper"
+	val GENERICMODELOBJECT_NAME = "GenericModelObject"
+	
 	@Inject extension IQualifiedNameProvider
 
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
@@ -31,23 +36,30 @@ class ModelGenerator implements IGenerator {
 				e.fullyQualifiedName.toString("/") + ".java",
 				compile(e, imports)
 			)
+			
+			if(e.name.equals("Object")){
+				fsa.generateFile(
+					HELP_CLASSES_PASS + GENERICMODELOBJECT_NAME + ".java",
+					e.generateGenericModelObject			
+				)
+			}
 		}
 		
 		val JavaIoFileSystemAccess fsa1 = fsa as JavaIoFileSystemAccess
 		
 		try{
-			val CharSequence is = fsa1.readTextFile("org/verapdf/model/ModelHelper.java")
+			val CharSequence is = fsa1.readTextFile(HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java")
 
 			var index = is.toString.lastIndexOf('}')
 			index = is.toString.substring(0, index).lastIndexOf('}')
 
 			fsa.generateFile(
-			"org/verapdf/model/ModelHelper.java",
+			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
 			is.toString.substring(0,index) + resource.appendDependenceClass			
 			)
 		}catch(Exception e){
 			fsa.generateFile(
-			"org/verapdf/model/ModelHelper.java",
+			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
 			resource.getDependenceClass			
 			)
 		}
@@ -62,6 +74,7 @@ class ModelGenerator implements IGenerator {
 		«FOR imp : imports»
 			import «imp.importedNamespace»;
 		«ENDFOR»
+		
 		«IF entity.superType == null»import java.util.List;«ENDIF»
 				
 		«IF (entity.comment != null)»
@@ -74,7 +87,9 @@ class ModelGenerator implements IGenerator {
 			public List<? extends «entity.name»> getLinkedObjects(String linkName);
 			public List<String> getSuperTypes();
 			public List<String> getProperties();
-			public Boolean contextDepended();
+			public String getType();
+			public String getID();
+			public Boolean isContextDependent();
 			«ENDIF»
 		«FOR attribute : entity.attributes»
 		
@@ -108,14 +123,14 @@ class ModelGenerator implements IGenerator {
 */
 
 	def getDependenceClass (Resource resource) '''
-		package org.verapdf.model;
+		package «HELP_CLASSES_PACKAGE»;
 		
 		import java.util.*;
 		
 		/**
 		* This class represents names of superinterfaces and names of all properties for all generated interfaces.
 		*/
-		public final class ModelHelper {
+		public final class «MODEL_HELPER_NAME» {
 			private final static Map<String, String> mapOfSuperNames = new HashMap<String, String>();
 			private final static Map<String, List<String>> mapOfProperties = new HashMap<String, List<String>>();
 			private final static Map<String, List<String>> mapOfLinks = new HashMap<String, List<String>>();
@@ -126,6 +141,10 @@ class ModelGenerator implements IGenerator {
 				
 			}
 			
+			/**
+			* @param objectName - the name of the object
+			* @return List of supernames for the given object
+			*/
 			public static List<String> getListOfSuperNames(String objectName){
 				List<String> res = new ArrayList<String>();
 				
@@ -139,6 +158,10 @@ class ModelGenerator implements IGenerator {
 				return res;
 			}
 			
+			/**
+			* @param objectName - the name of the object
+			* @return List of names of properties for the given object
+			*/
 			public static List<String> getListOfProperties(String objectName){
 				List<String> res = new ArrayList<String>();
 				
@@ -155,6 +178,10 @@ class ModelGenerator implements IGenerator {
 				return res;
 			}
 			
+			/**
+			* @param objectName - the name of the object
+			* @return List of names of links for the given object
+			*/
 			public static List<String> getListOfLinks(String objectName){
 				List<String> res = new ArrayList<String>();
 				
@@ -207,5 +234,72 @@ class ModelGenerator implements IGenerator {
 			}
 			
 		}
+	'''
+	
+	def generateGenericModelObject(Entity e) '''
+		package «HELP_CLASSES_PACKAGE»;
+		
+		import «e.eContainer.fullyQualifiedName».«e.name»;
+		import java.util.*;
+		
+		public abstract class «GENERICMODELOBJECT_NAME» implements «e.name» {
+			
+			protected Boolean contextDependent = false;
+			
+			/**
+			* @param link - the name of a link
+			* @return List of objects with the given link
+			*/
+			@Override
+			public List<? extends Object> getLinkedObjects(String link) {
+		        throw new IllegalAccessError(this.getType() + " has not access to this method or has not " + link + " link.");
+		    }
+		
+			/**
+			* @return List of names of links for {@code this} object
+			*/
+		    @Override
+		    public List<String> getLinks() {
+		        return ModelHelper.getListOfLinks(this.getType());
+		    }
+		
+			/**
+			* @return List of names of properties for {@code this} object
+			*/
+		    @Override
+		    public List<String> getProperties() {
+		        return ModelHelper.getListOfProperties(this.getType());
+		    }
+		
+			/**
+			* @return null, if we have not know yet is this object context dependet of not. true, if this object is context dependent. false, if this object is not context dependent.
+			*/
+		    @Override
+		    public Boolean isContextDependent() {
+		        return contextDependent;
+		    }
+		
+			/**
+			* @return List of supernames for {@code this} object
+			*/
+		    @Override
+		    public List<String> getSuperTypes() {
+		        return ModelHelper.getListOfSuperNames(this.getType());
+		    }
+		«FOR attribute : e.attributes»
+		
+			«attribute.generateGetterForCenericModelObject»
+		«ENDFOR»
+		}
+	'''
+	
+	def generateGetterForCenericModelObject (Attribute attribute) '''
+		«IF (attribute instanceof Property)»
+		«IF (attribute.comment != null)»
+			«toJavaDocComment(attribute.comment)»
+		«ENDIF»
+		@Override
+		public abstract «attribute.type» get«attribute.name»();
+		«ENDIF»
 	'''
 }
