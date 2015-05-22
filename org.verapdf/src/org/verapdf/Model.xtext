@@ -21,7 +21,7 @@ Attribute:
 
 Property:
 	(comment = COMMENT)?
-	'property' name = ID ':' type = ('String' | 'Integer' | 'BigDecimal' | 'Boolean')';'
+	'property' name = ID ':' type = ('String' | 'Integer' | 'Decimal' | 'Boolean')';'
 ;
 
 Link:
