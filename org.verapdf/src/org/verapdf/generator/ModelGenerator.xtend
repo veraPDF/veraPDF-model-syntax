@@ -103,9 +103,18 @@ class ModelGenerator implements IGenerator {
 		«IF (attribute.comment != null)»
 			«toJavaDocComment(attribute.comment)»
 		«ENDIF»
-		public «attribute.type» get«attribute.name»();
+		public «toJavaType(attribute.type)» get«attribute.name»();
 		«ENDIF»
 	'''
+	
+	def toJavaType(String type) {
+		switch type {
+			case "Integer" : return "Long"
+		    case "Decimal" : return "Double"
+		    case "String" : return "String"
+		    case "Boolean" : return "Boolean"
+		}
+    }
 	
 	def toJavaDocComment (String comment) '''
 		/** «comment.substring(1)» */
