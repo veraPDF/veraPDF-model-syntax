@@ -9,7 +9,7 @@ Model:
 ;
 
 Entity:
-	(comment = COMMENT)?
+	(comment = COMMENT)*
 	'type' name = ID ('extends' superType = [Entity | QualifiedName])? '{'
 		(attributes += Attribute)*
 	'}'
