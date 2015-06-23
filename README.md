@@ -1,4 +1,4 @@
-# xtextmodel-syntax
+# veraPDF-model-syntax
 
 To get xtextmodel-syntax support in Eclipse :
 
