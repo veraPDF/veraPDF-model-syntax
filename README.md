@@ -1,6 +1,8 @@
 # veraPDF-model-syntax
 
-To get xtextmodel-syntax support in Eclipse :
+This project provides domain specific language support developed with xtext including spellchecking, word complete, syntax colouring and generating java interfaces from described model. VeraPDF syntax is used to describe VeraPDF pdf/a validation model (https://github.com/veraPDF/veraPDF-model).
+
+To get veraPDF-model support in Eclipse :
 
 1) Install xtext plugin in Eclipse. If you don't have Eclipse yet installed, it is recommended to get Eclipse distribution with already integrated xtext features from: https://eclipse.org/Xtext/download.html.
 
