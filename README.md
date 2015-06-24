@@ -6,7 +6,7 @@ This project provides domain specific language support for the [veraPDF PDF/A va
 CI Status
 ---------
 
-Travis: [![Build Status](https://travis-ci.org/veraPDF/veraPDF-model-syntax.svg?branch=add-jdks)](https://travis-ci.org/veraPDF/veraPDF-model-syntax)
+Travis: [![Build Status](https://travis-ci.org/veraPDF/veraPDF-model-syntax.svg?branch=master)](https://travis-ci.org/veraPDF/veraPDF-model-syntax)
 
 Jenkins: [![Build Status](http://jenkins.opf-labs.org/view/veraPDF-jobs/job/veraPDF-model-syntax/badge/icon)](http://jenkins.opf-labs.org/view/veraPDF-jobs/job/veraPDF-model-syntax/)
 
