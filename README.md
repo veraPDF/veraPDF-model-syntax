@@ -1,29 +1,44 @@
-# veraPDF-model-syntax
+veraPDF-model-syntax
+====================
 
-To get xtextmodel-syntax support in Eclipse :
+This project provides domain specific language support for the [veraPDF PDF/A validation model](https://github.com/veraPDF/veraPDF-model). The DSL is developed with Xtext including spell checking, word completion, syntax colouring and generation of Java interfaces from the model.
 
-1) Install xtext plugin in Eclipse. If you don't have Eclipse yet installed, it is recommended to get Eclipse distribution with already integrated xtext features from: https://eclipse.org/Xtext/download.html.
+CI Status
+---------
 
-2) Now you need local copy of xtextmodel-syntax repo. It can be copied via "Download ZIP" button on project page or via git :
+Travis: [![Build Status](https://travis-ci.org/veraPDF/veraPDF-model-syntax.svg?branch=master)](https://travis-ci.org/veraPDF/veraPDF-model-syntax)
 
-```
-git clone https://github.com/veraPDF/xtextmodel-syntax
-```
+Jenkins: [![Build Status](http://jenkins.opf-labs.org/view/veraPDF-jobs/job/veraPDF-model-syntax/badge/icon)](http://jenkins.opf-labs.org/view/veraPDF-jobs/job/veraPDF-model-syntax/)
 
-3) Copy plugins from xtextmodel-syntax/eclipse_plugins to {eclipse_directory}/plugins.
+Pre-requisites
+--------------
 
-4) Restart Eclipse
+In order to make use of the DLS support you'll require
 
-5) Now your eclipse has support of {formal_syntax_name} with syntax checking and coloring, autocomplete and generating java interfaces from model classes (should have .mdl extension). 
+ * Java 7, which can be downloaded [from Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html), or for Linux users [OpenJDK](http://openjdk.java.net/install/index.html).
+ * The [Eclipse IDE](https://eclipse.org/) with the [Xtext plug-in](https://eclipse.org/Xtext/download.html). If you haven't installed Eclipse then we recommend downloading the [Xtext Eclipse distribution](https://eclipse.org/Xtext/download.html).
 
-To open veraPDF generic model follow these steps :
+Installation of DSL Support in Eclipse
+--------------------------------------
 
-1) Make local copy of veraPDF-model repository via "Download ZIP" button on project page or via git :
+To get veraPDF-model support in Eclipse :
 
-```
-git clone https://github.com/veraPDF/veraPDF-model
-```
+ 1. Download the veraPDF-model-syntax repository, either cloning via Git
+ `git clone https://github.com/veraPDF/veraPDF-model-syntax` or downloading the [latest zip archive from GitHub](https://github.com/veraPDF/veraPDF-model-syntax/archive/master.zip).
 
-2) Launch eclipse and import model into eclipse workspace : File -> Import... -> General -> Existing Projects into Workspace.
+ 2. Copy the plugins from `veraPDF-model-syntax/eclipse_plugins` to `{eclipse_directory}/plugins`.
 
-3) Model classes are placed in src/main/java.
+ 3. Restart Eclipse.
+
+Your Eclipse installation should now support {formal_syntax_name} with syntax checking and colouring, auto-completion, and generation of Java interfaces from the model classes (should have `.mdl` extension).
+
+Importing the veraPDF Validation Model
+--------------------------------------
+
+To begin working with the veraPDF model:
+
+ 1. Download the veraPDF-model repository, either cloning via Git `git clone https://github.com/veraPDF/veraPDF-model` or downloading the [latest zip archive from GitHub](https://github.com/veraPDF/veraPDF-model/archive/master.zip).
+
+ 2. Launch Eclipse and import the model into your Eclipse workspace: File -> Import... -> General -> Existing Projects into Workspace.
+
+The model classes are placed in `src/main/java`.
