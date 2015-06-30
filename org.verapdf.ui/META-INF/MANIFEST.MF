@@ -17,7 +17,8 @@ Require-Bundle: org.verapdf;visibility:=reexport,
  org.eclipse.xtext.common.types.ui,
  org.eclipse.xtext.ui.codetemplates.ui,
  org.eclipse.compare
-Import-Package: org.apache.log4j
+Import-Package: org.apache.log4j,
+ org.verapdf.services
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.verapdf.ui.quickfix,org.verapdf.ui.contentassist,o
  rg.verapdf.ui.contentassist.antlr,org.verapdf.ui.internal

@@ -27,8 +27,9 @@
 
 	<distributionManagement>
 		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        <id>OPF Artefactory</id>
+        <name>OPF Artefactory-releases</name>
+        <url>http://artifactory.opf-labs.org/artifactory/libs-release-local</url>
 		</repository>
 	</distributionManagement>
 
@@ -46,10 +47,6 @@
 			<id>Xtext Update Site</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/maintenance/</url>
-		</repository>
-		<repository>
-			<id>veraPDF-dev</id>
-			<url>http://jenkins.opf-labs.org/plugin/repository/everything</url>
 		</repository>
 	</repositories>
 	<build>
