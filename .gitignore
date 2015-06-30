@@ -7,3 +7,4 @@
 **/model/
 /.idea/**
 *.iml
+**/.settings
