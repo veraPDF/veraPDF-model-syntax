@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.verapdf
-Bundle-Vendor: My Company
-Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: veraPDF Consortium
+Bundle-Version: 0.1.10
 Bundle-SymbolicName: org.verapdf; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;visibility:=reexport,
@@ -22,15 +22,8 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.verapdf,
- org.verapdf.services,
- org.verapdf.model,
- org.verapdf.model.impl,
- org.verapdf.model.util,
- org.verapdf.serializer,
- org.verapdf.parser.antlr,
- org.verapdf.parser.antlr.internal,
- org.verapdf.validation,
- org.verapdf.scoping,
- org.verapdf.generator,
- org.verapdf.formatting
+Export-Package: org.verapdf,org.verapdf.services,org.verapdf.model,org
+ .verapdf.model.impl,org.verapdf.model.util,org.verapdf.serializer,org
+ .verapdf.parser.antlr,org.verapdf.parser.antlr.internal,org.verapdf.v
+ alidation,org.verapdf.scoping,org.verapdf.generator,org.verapdf.forma
+ tting
