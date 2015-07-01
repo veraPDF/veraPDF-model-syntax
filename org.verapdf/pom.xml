@@ -11,7 +11,8 @@
 	<artifactId>org.verapdf</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
-	<name>VERA PDF Core</name>
+	<name>veraPDF Validation Model DSL</name>
+	<description>Domain specific language defined for PDF model in Xtext.</description>
 
 	<build>
 		<plugins>
