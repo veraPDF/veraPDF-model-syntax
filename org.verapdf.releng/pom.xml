@@ -14,7 +14,7 @@
 
 	<name>veraPDF Model Syntax</name>
 	<description>PDF/A Validation model DSL defined in Xtext with Eclipse support.</description>
-	
+
 	<inceptionYear>2015</inceptionYear>
 	<organization>
 		<name>The veraPDF Consortium</name>
@@ -72,10 +72,6 @@
 			<url>http://artifactory.opf-labs.org/artifactory/libs-release-local</url>
 		</repository>
 	</distributionManagement>
-
-	<scm>
-		<connection>scm:git:https://github.com/veraPDF/xtextmodel-syntax.git</connection>
-	</scm>
 
 	<repositories>
 		<repository>
