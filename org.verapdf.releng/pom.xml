@@ -65,14 +65,6 @@
 		<xtext.version>2.7.2</xtext.version>
 	</properties>
 
-	<distributionManagement>
-		<repository>
-			<id>OPF Artefactory</id>
-			<name>OPF Artefactory-releases</name>
-			<url>http://artifactory.opf-labs.org/artifactory/libs-release-local</url>
-		</repository>
-	</distributionManagement>
-
 	<repositories>
 		<repository>
 			<id>eclipse</id>
