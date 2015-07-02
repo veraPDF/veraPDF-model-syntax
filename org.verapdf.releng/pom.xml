@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>org.verapdf</groupId>
 	<artifactId>parent</artifactId>
-	<version>0.1.10</version>
+	<version>0.1.97</version>
 	<packaging>pom</packaging>
 
 	<name>veraPDF Model Syntax</name>
