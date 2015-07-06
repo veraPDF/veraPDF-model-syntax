@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.verapdf.tests
 Bundle-Vendor: veraPDF Consortium
-Bundle-Version: 0.1.10
+Bundle-Version: 0.1.0.qualifier
 Bundle-SymbolicName: org.verapdf.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.verapdf,
@@ -11,7 +11,7 @@ Require-Bundle: org.verapdf,
  org.eclipse.xtext.junit4,
  org.eclipse.ui.workbench;resolution:=optional,
  org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional,
- org.verapdf
+ org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.log4j,
  org.hamcrest.core,
  org.junit;version="4.5.0",
