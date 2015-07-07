@@ -6,14 +6,14 @@ This project provides domain specific language support for the [veraPDF PDF/A va
 CI Status
 ---------
 
-Travis: [![Build Status](https://travis-ci.org/veraPDF/veraPDF-model-syntax.svg?branch=master)](https://travis-ci.org/veraPDF/veraPDF-model-syntax)
+Travis: [![Build Status](https://travis-ci.org/veraPDF/veraPDF-model-syntax.svg?branch=integration)](https://travis-ci.org/veraPDF/veraPDF-model-syntax)
 
 Jenkins: [![Build Status](http://jenkins.opf-labs.org/view/veraPDF-jobs/job/veraPDF-model-syntax/badge/icon)](http://jenkins.opf-labs.org/view/veraPDF-jobs/job/veraPDF-model-syntax/)
 
 Pre-requisites
 --------------
 
-In order to make use of the DLS support you'll require
+In order to make use of the DSL support you'll require
 
  * Java 7, which can be downloaded [from Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html), or for Linux users [OpenJDK](http://openjdk.java.net/install/index.html).
  * The [Eclipse IDE](https://eclipse.org/) with the [Xtext plug-in](https://eclipse.org/Xtext/download.html). If you haven't installed Eclipse then we recommend downloading the [Xtext Eclipse distribution](https://eclipse.org/Xtext/download.html).
