@@ -16,6 +16,14 @@
 
   <name>VERA PDF Update Site</name>
 
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>org.verapdf.sdk</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -39,11 +47,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>org.verapdf.sdk</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-	</dependencies>
 </project>
