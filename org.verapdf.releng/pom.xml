@@ -2,11 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<artifactId>oss-parent</artifactId>
 		<groupId>org.sonatype.oss</groupId>
 		<version>7</version>
 	</parent>
+
 	<groupId>org.verapdf</groupId>
 	<artifactId>parent</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
@@ -14,14 +16,12 @@
 
 	<name>veraPDF Model Syntax</name>
 	<description>PDF/A Validation model DSL defined in Xtext with Eclipse support.</description>
-
+	<url>https://github.com/veraPDF/veraPDF-model-syntax/</url>
 	<inceptionYear>2015</inceptionYear>
 	<organization>
 		<name>The veraPDF Consortium</name>
 		<url>http://www.verapdf.org/</url>
 	</organization>
-	<url>https://github.com/veraPDF/veraPDF-model-syntax/</url>
-
 	<licenses>
 		<license>
 			<name>GNU General Public License, version 3 (GPL-3.0)</name>
@@ -35,30 +35,6 @@
 		</license>
 	</licenses>
 
-	<scm>
-		<url>https://github.com/veraPDF/veraPDF-model-syntax/</url>
-		<connection>scm:git:https://github.com/veraPDF/veraPDF-model-syntax.git</connection>
-		<developerConnection>scm:git:git@github.com:veraPDF/veraPDF-model-syntax.git</developerConnection>
-	</scm>
-
-	<issueManagement>
-		<url>https://github.com/veraPDF/veraPDF-model-syntax/issues/</url>
-		<system>GitHub Issues</system>
-	</issueManagement>
-
-	<ciManagement>
-		<system>OPF Jenkins</system>
-		<url>http://jenkins.opf-labs.org</url>
-	</ciManagement>
-
-	<distributionManagement>
-		<repository>
-			<id>OPF Artefactory</id>
-			<name>OPF Artefactory-releases</name>
-			<url>http://artifactory.opf-labs.org/artifactory/vera-dev-local</url>
-		</repository>
-	</distributionManagement>
-
 	<developers>
 		<developer>
 			<email>carl@openpreservation.org</email>
@@ -69,6 +45,27 @@
 			<id>carlwilson</id>
 		</developer>
 	</developers>
+
+	<scm>
+		<url>https://github.com/veraPDF/veraPDF-model-syntax/</url>
+		<connection>scm:git:https://github.com/veraPDF/veraPDF-model-syntax.git</connection>
+		<developerConnection>scm:git:git@github.com:veraPDF/veraPDF-model-syntax.git</developerConnection>
+	</scm>
+	<issueManagement>
+		<url>https://github.com/veraPDF/veraPDF-model-syntax/issues/</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+	<ciManagement>
+		<system>OPF Jenkins</system>
+		<url>http://jenkins.opf-labs.org</url>
+	</ciManagement>
+	<distributionManagement>
+		<repository>
+			<id>OPF Artefactory</id>
+			<name>OPF Artefactory-releases</name>
+			<url>http://artifactory.opf-labs.org/artifactory/vera-dev-local</url>
+		</repository>
+	</distributionManagement>
 
 	<modules>
 		<module>../org.verapdf</module>
@@ -100,7 +97,7 @@
 	<build>
 		<pluginManagement>
 			<plugins>
-				<!-- xtend-maven-plugin is in pluginManagement instead of in plugins so that it doesn't run before the exec-maven-plugin's 
+				<!-- xtend-maven-plugin is in pluginManagement instead of in plugins so that it doesn't run before the exec-maven-plugin's
 					*.mwe2 gen; this way we can list it after. -->
 				<plugin>
 					<groupId>org.eclipse.xtend</groupId>
