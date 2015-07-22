@@ -168,6 +168,13 @@ class ModelGenerator implements IGenerator {
 			}
 			
 			/**
+			* @return Set of all type names
+			*/
+			public static Set<String> getTypes(){
+				return mapOfSuperNames.keySet();
+			}
+			
+			/**
 			* @param objectName - the name of the object
 			* @return List of names of properties for the given object
 			*/
