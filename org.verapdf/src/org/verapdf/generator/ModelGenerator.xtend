@@ -259,6 +259,25 @@ class ModelGenerator implements IGenerator {
 		public abstract class «GENERICMODELOBJECT_NAME» implements «e.name» {
 			
 			protected Boolean contextDependent = false;
+			private final String objectType;
+			
+			protected «GENERICMODELOBJECT_NAME»(String objectType) {
+				this.objectType = objectType;
+			}
+			
+			/**
+			* @return type of the current object
+			*/
+			public final String getObjectType() {
+				return this.objectType;
+			}
+			
+			/**
+			* @return id of the current object
+			*/
+			public String getID() {
+				return null;
+			}
 			
 			/**
 			* @param link - the name of a link
