@@ -87,7 +87,7 @@ class ModelGenerator implements IGenerator {
 			public List<? extends «entity.name»> getLinkedObjects(String linkName);
 			public List<String> getSuperTypes();
 			public List<String> getProperties();
-			public String getType();
+			public String getObjectType();
 			public String getID();
 			public Boolean isContextDependent();
 			«ENDIF»
