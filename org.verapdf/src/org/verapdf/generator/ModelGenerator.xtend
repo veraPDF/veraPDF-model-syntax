@@ -285,7 +285,7 @@ class ModelGenerator implements IGenerator {
 			*/
 			@Override
 			public List<? extends Object> getLinkedObjects(String link) {
-		        throw new IllegalAccessError(this.getType() + " has not access to this method or has not " + link + " link.");
+		        throw new IllegalAccessError(this.getObjectType() + " has not access to this method or has not " + link + " link.");
 		    }
 		
 			/**
@@ -293,7 +293,7 @@ class ModelGenerator implements IGenerator {
 			*/
 		    @Override
 		    public List<String> getLinks() {
-		        return ModelHelper.getListOfLinks(this.getType());
+		        return ModelHelper.getListOfLinks(this.getObjectType());
 		    }
 		
 			/**
@@ -301,7 +301,7 @@ class ModelGenerator implements IGenerator {
 			*/
 		    @Override
 		    public List<String> getProperties() {
-		        return ModelHelper.getListOfProperties(this.getType());
+		        return ModelHelper.getListOfProperties(this.getObjectType());
 		    }
 		
 			/**
@@ -317,7 +317,7 @@ class ModelGenerator implements IGenerator {
 			*/
 		    @Override
 		    public List<String> getSuperTypes() {
-		        return ModelHelper.getListOfSuperNames(this.getType());
+		        return ModelHelper.getListOfSuperNames(this.getObjectType());
 		    }
 		«FOR attribute : e.attributes»
 		
