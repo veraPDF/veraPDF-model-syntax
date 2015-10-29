@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.verapdf.tests
 Bundle-Vendor: veraPDF Consortium
-Bundle-Version: 0.6.0
+Bundle-Version: 0.6.0.qualifier
 Bundle-SymbolicName: org.verapdf.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.verapdf,
