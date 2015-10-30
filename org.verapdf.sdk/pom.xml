@@ -7,7 +7,7 @@
 		<relativePath>../org.verapdf.releng/pom.xml</relativePath>
 		<groupId>org.verapdf</groupId>
 		<artifactId>parent</artifactId>
-		<version>0.2.0</version>
+		<version>0.6.0</version>
 	</parent>
 
 	<artifactId>org.verapdf.sdk</artifactId>

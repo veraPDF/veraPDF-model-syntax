@@ -87,7 +87,7 @@ class ModelGenerator implements IGenerator {
 			public List<? extends «entity.name»> getLinkedObjects(String linkName);
 			public List<String> getSuperTypes();
 			public List<String> getProperties();
-			public String getType();
+			public String getObjectType();
 			public String getID();
 			public Boolean isContextDependent();
 			«ENDIF»
@@ -165,6 +165,13 @@ class ModelGenerator implements IGenerator {
 				}
 				
 				return res;
+			}
+			
+			/**
+			* @return Set of all type names
+			*/
+			public static Set<String> getTypes(){
+				return mapOfSuperNames.keySet();
 			}
 			
 			/**
@@ -252,6 +259,25 @@ class ModelGenerator implements IGenerator {
 		public abstract class «GENERICMODELOBJECT_NAME» implements «e.name» {
 			
 			protected Boolean contextDependent = false;
+			private final String objectType;
+			
+			protected «GENERICMODELOBJECT_NAME»(String objectType) {
+				this.objectType = objectType;
+			}
+			
+			/**
+			* @return type of the current object
+			*/
+			public final String getObjectType() {
+				return this.objectType;
+			}
+			
+			/**
+			* @return id of the current object
+			*/
+			public String getID() {
+				return null;
+			}
 			
 			/**
 			* @param link - the name of a link
@@ -259,7 +285,7 @@ class ModelGenerator implements IGenerator {
 			*/
 			@Override
 			public List<? extends Object> getLinkedObjects(String link) {
-		        throw new IllegalAccessError(this.getType() + " has not access to this method or has not " + link + " link.");
+		        throw new IllegalAccessError(this.getObjectType() + " has not access to this method or has not " + link + " link.");
 		    }
 		
 			/**
@@ -267,7 +293,7 @@ class ModelGenerator implements IGenerator {
 			*/
 		    @Override
 		    public List<String> getLinks() {
-		        return ModelHelper.getListOfLinks(this.getType());
+		        return ModelHelper.getListOfLinks(this.getObjectType());
 		    }
 		
 			/**
@@ -275,7 +301,7 @@ class ModelGenerator implements IGenerator {
 			*/
 		    @Override
 		    public List<String> getProperties() {
-		        return ModelHelper.getListOfProperties(this.getType());
+		        return ModelHelper.getListOfProperties(this.getObjectType());
 		    }
 		
 			/**
@@ -291,7 +317,7 @@ class ModelGenerator implements IGenerator {
 			*/
 		    @Override
 		    public List<String> getSuperTypes() {
-		        return ModelHelper.getListOfSuperNames(this.getType());
+		        return ModelHelper.getListOfSuperNames(this.getObjectType());
 		    }
 		«FOR attribute : e.attributes»
 		
