@@ -8,7 +8,7 @@ CI Status
 
 Travis: [![Build Status](https://travis-ci.org/veraPDF/veraPDF-model-syntax.svg?branch=integration)](https://travis-ci.org/veraPDF/veraPDF-model-syntax)
 
-Jenkins: [![Build Status](http://jenkins.opf-labs.org/view/veraPDF-jobs/job/veraPDF-model-syntax/badge/icon)](http://jenkins.opf-labs.org/view/veraPDF-jobs/job/veraPDF-model-syntax/)
+Jenkins: [![Build Status](http://jenkins.opf-labs.org/job/veraPDF-model-syntax-0.8/badge/icon)](http://jenkins.opf-labs.org/job/veraPDF-model-syntax-0.8/)
 
 Pre-requisites
 --------------
