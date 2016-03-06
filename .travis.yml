@@ -7,4 +7,5 @@ jdk:
 
 install:
   - cd org.verapdf.releng
+  - export MAVEN_OPTS="-Xmx1024M"
   - mvn clean install -DskipTests
