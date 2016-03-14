@@ -8,7 +8,7 @@
     <relativePath>../org.verapdf.releng/pom.xml</relativePath>
     <groupId>org.verapdf</groupId>
     <artifactId>parent</artifactId>
-    <version>0.10.0</version>
+    <version>0.11.100-SNAPSHOT</version>
   </parent>
 
   <artifactId>org.verapdf.updatesite</artifactId>
