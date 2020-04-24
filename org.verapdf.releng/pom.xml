@@ -79,6 +79,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tycho-version>0.23.0</tycho-version>
 		<xtext.version>2.8.3</xtext.version>
+		<equinox.version>3.10.200</equinox.version>
 	  <mvn.gpg.plugin.version>1.6</mvn.gpg.plugin.version>
 	</properties>
 
@@ -104,6 +105,13 @@
 					<groupId>org.eclipse.xtend</groupId>
 					<artifactId>xtend-maven-plugin</artifactId>
 					<version>${xtext.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.platform</groupId>
+							<artifactId>org.eclipse.equinox.common</artifactId>
+							<version>${equinox.version}</version>
+						</dependency>
+					</dependencies>
 					<executions>
 						<execution>
 							<goals>
