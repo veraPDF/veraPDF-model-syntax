@@ -90,6 +90,7 @@ class ModelGenerator implements IGenerator {
 			public String getObjectType();
 			public String getID();
 			public Boolean isContextDependent();
+			public String getExtraContext();
 			«ENDIF»
 		«FOR attribute : entity.attributes»
 		
@@ -276,6 +277,13 @@ class ModelGenerator implements IGenerator {
 			* @return id of the current object
 			*/
 			public String getID() {
+				return null;
+			}
+
+			/**
+			* @return extra content of the current object
+			*/
+			public String getExtraContext() {
 				return null;
 			}
 			

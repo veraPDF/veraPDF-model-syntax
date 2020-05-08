@@ -3,7 +3,7 @@ sudo: required
 dist: trusty
 
 jdk:
-  - oraclejdk7
+  - openjdk8
   - oraclejdk8
 
 install:
