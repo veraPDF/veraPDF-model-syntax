@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>oss-parent</artifactId>
-		<groupId>org.sonatype.oss</groupId>
-		<version>7</version>
+		<artifactId>verapdf-parent</artifactId>
+		<groupId>org.verapdf</groupId>
+		<version>1.16.1</version>
 	</parent>
 
 	<groupId>org.verapdf</groupId>
