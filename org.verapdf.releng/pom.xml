@@ -51,21 +51,6 @@
 		<connection>scm:git:https://github.com/veraPDF/veraPDF-model-syntax.git</connection>
 		<developerConnection>scm:git:git@github.com:veraPDF/veraPDF-model-syntax.git</developerConnection>
 	</scm>
-	<issueManagement>
-		<url>https://github.com/veraPDF/veraPDF-model-syntax/issues/</url>
-		<system>GitHub Issues</system>
-	</issueManagement>
-	<ciManagement>
-		<system>OPF Jenkins</system>
-		<url>http://jenkins.opf-labs.org</url>
-	</ciManagement>
-	<distributionManagement>
-		<repository>
-			<id>OPF Artefactory</id>
-			<name>OPF Artefactory-releases</name>
-			<url>http://artifactory.opf-labs.org/artifactory/vera-dev-local</url>
-		</repository>
-	</distributionManagement>
 
 	<modules>
 		<module>../org.verapdf</module>
@@ -244,34 +229,17 @@
 			</plugin>
 		</plugins>
 	</build>
+
 	<profiles>
-		<profile>
-				<id>release-sign-artifacts</id>
-				<activation>
-						<property>
-								<name>performRelease</name>
-								<value>true</value>
-						</property>
-				</activation>
-				<build>
-						<plugins>
-								<plugin>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-gpg-plugin</artifactId>
-										<version>${mvn.gpg.plugin.version}</version>
-										<executions>
-												<execution>
-														<id>sign-artifacts</id>
-														<phase>verify</phase>
-														<goals>
-																<goal>sign</goal>
-														</goals>
-												</execution>
-										</executions>
-								</plugin>
-						</plugins>
-				</build>
-		</profile>
-	</profiles>
+    <profile>
+      <id>Java 1.8</id>
+      <activation>
+        <jdk>1.8</jdk>
+      </activation>
+      <properties>
+        <additionalparam>-Xdoclint:none</additionalparam>
+      </properties>
+    </profile>
+  </profiles>
 
 </project>
