@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>verapdf-parent</artifactId>
 		<groupId>org.verapdf</groupId>
-		<version>1.16.1</version>
+		<version>1.18.1</version>
 	</parent>
 
 	<groupId>org.verapdf</groupId>
@@ -72,6 +72,14 @@
 	</properties>
 
 	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>vera-dev</id>
+			<name>Vera development</name>
+			<url>https://artifactory.openpreservation.org/artifactory/vera-dev</url>
+		</repository>
 		<repository>
 			<id>eclipse</id>
 			<layout>p2</layout>
