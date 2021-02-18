@@ -11,7 +11,7 @@
 
 	<groupId>org.verapdf</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.16.0</version>
+	<version>1.19.0</version>
 	<packaging>pom</packaging>
 
 	<name>veraPDF Model Syntax</name>
@@ -72,6 +72,14 @@
 	</properties>
 
 	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>vera-dev</id>
+			<name>Vera development</name>
+			<url>https://artifactory.openpreservation.org/artifactory/vera-dev</url>
+		</repository>
 		<repository>
 			<id>eclipse</id>
 			<layout>p2</layout>
