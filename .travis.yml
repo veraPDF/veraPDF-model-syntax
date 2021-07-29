@@ -3,7 +3,7 @@ sudo: required
 dist: bionic
 
 jdk:
-  - openjdk11
+  - openjdk10
 
 install:
   - cd org.verapdf.releng
