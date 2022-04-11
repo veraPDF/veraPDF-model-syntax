@@ -6,7 +6,7 @@
 		<relativePath>../org.verapdf.releng/pom.xml</relativePath>
 		<groupId>org.verapdf</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.19.0</version>
+		<version>1.21.0</version>
 	</parent>
 
 	<artifactId>org.verapdf</artifactId>
@@ -16,73 +16,34 @@
 	<description>Domain specific language defined for PDF model in Xtext.</description>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<resources>
-			<resource>
-				<directory>src</directory>
-				<includes>
-					<include>**/*.xtext</include>
-				</includes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>2.5</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>${basedir}/src-gen</directory>
-						</fileset>
-						<fileset>
-							<directory>${basedir}/xtend-gen</directory>
-						</fileset>
-						<!-- clean ui plugin as well -->
-						<fileset>
-							<directory>${basedir}/../${project.artifactId}.ui/src-gen</directory>
-						</fileset>
-						<fileset>
-							<directory>${basedir}/../${project.artifactId}.ui/xtend-gen</directory>
-						</fileset>
-						<!-- clean test fragment as well -->
-						<fileset>
-							<directory>${basedir}/../${project.artifactId}.tests/src-gen</directory>
-						</fileset>
-						<fileset>
-							<directory>${basedir}/../${project.artifactId}.tests/xtend-gen</directory>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.0.0</version>
 				<executions>
 					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
+						<id>gen-clean</id>
+						<phase>clean</phase>
+						<!-- Clean up generated files in all projects -->
 						<configuration>
-							<sources>
-								<source>src-gen</source>
-								<source>xtend-gen</source>
-							</sources>
+							<filesets combine.children="append">
+								<fileset>
+									<directory>${basedir}/src-gen/</directory>
+								</fileset>
+								<fileset>
+									<directory>${basedir}/model/generated/</directory>
+								</fileset>
+								<fileset>
+									<directory>${basedir}/../${project.artifactId}.ui/src-gen/</directory>
+								</fileset>
+								<fileset>
+									<directory>${basedir}/../${project.artifactId}.tests/src-gen/</directory>
+								</fileset>
+							</filesets>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin> <groupId>org.fornax.toolsupport</groupId> <artifactId>fornax-oaw-m2-plugin</artifactId>
-				<version>3.5.1</version> <configuration> <workflowEngine>mwe2</workflowEngine>
-				<workflowDescriptor>src/org/verapdf/GenerateModel.mwe2</workflowDescriptor>
-				</configuration> <executions> <execution> <phase>generate-sources</phase>
-				<goals> <goal>run-workflow</goal> </goals> </execution> </executions> </plugin> -->
-			<!-- -->
-
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -122,20 +83,10 @@
 						<version>${xtext-version}</version>
 					</dependency>
 					<dependency>
-						<groupId>org.eclipse.equinox</groupId>
-						<artifactId>common</artifactId>
-						<version>3.6.200-v20130402-1505</version>
-					</dependency>
-					<dependency>
 						<groupId>org.eclipse.emf</groupId>
 						<artifactId>org.eclipse.emf.mwe2.launch</artifactId>
 						<version>2.12.2</version>
 						<optional>true</optional>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.xtext</groupId>
-						<artifactId>xtext-antlr-generator</artifactId>
-						<version>2.1.1</version>
 					</dependency>
 					<dependency>
 						<groupId>com.ibm.icu</groupId>
