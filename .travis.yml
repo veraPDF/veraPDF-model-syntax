@@ -4,6 +4,7 @@ dist: bionic
 
 jdk:
   - openjdk11
+  - openjdk17
 
 install:
   - cd org.verapdf.releng

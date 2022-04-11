@@ -7,7 +7,7 @@
 		<relativePath>../org.verapdf.releng/pom.xml</relativePath>
 		<groupId>org.verapdf</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.19.0</version>
+		<version>1.21.0</version>
 	</parent>
 
 	<artifactId>org.verapdf.ui</artifactId>
@@ -16,25 +16,14 @@
 	<name>VERA PDF UI</name>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.0.0</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src-gen</source>
-								<source>xtend-gen</source>
-							</sources>
-						</configuration>
+						<id>gen-clean</id>
+						<phase>clean</phase>
 					</execution>
 				</executions>
 			</plugin>
@@ -42,7 +31,6 @@
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
 			</plugin>
-
 		</plugins>
 	</build>
 </project>

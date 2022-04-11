@@ -6,12 +6,12 @@
 	<parent>
 		<artifactId>verapdf-parent</artifactId>
 		<groupId>org.verapdf</groupId>
-		<version>1.19.1</version>
+		<version>1.21.1</version>
 	</parent>
 
 	<groupId>org.verapdf</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.19.0</version>
+	<version>1.21.0</version>
 	<packaging>pom</packaging>
 
 	<name>veraPDF Model Syntax</name>
@@ -86,56 +86,10 @@
 			<url>https://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext-version}</url>
 			<layout>p2</layout>
 		</repository>
-		<repository>
-			<id>mwe</id>
-			<url>https://download.eclipse.org/modeling/emft/mwe/updates/releases/2.12.2/</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
-			<id>emf</id>
-			<url>https://download.eclipse.org/modeling/emf/emf/builds/release</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
-			<id>xpand</id>
-			<url>http://download.eclipse.org/modeling/m2t/xpand/updates/releases/</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
-			<id>codehaus-snapshots</id>
-			<name>disable dead 'Codehaus Snapshots' repository, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=481478</name>
-			<url>http://nexus.codehaus.org/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
 	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>codehaus-snapshots</id>
-			<name>disable dead 'Codehaus Snapshots' repository, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=481478</name>
-			<url>http://nexus.codehaus.org/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<extensions>true</extensions>
-			</plugin>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
@@ -147,6 +101,9 @@
 					<execution>
 						<goals>
 							<goal>compile</goal>
+							<goal>xtend-install-debug-info</goal>
+							<goal>testCompile</goal>
+							<goal>xtend-test-install-debug-info</goal>
 						</goals>
 						<configuration>
 							<!-- need to prefix by basedir to generate to currently built module -->
@@ -158,6 +115,12 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-versions-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
