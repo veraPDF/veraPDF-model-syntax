@@ -302,7 +302,7 @@ class ModelGenerator implements IGenerator {
 			* @return comma separated list of error codes
 			*/
 			public String geterrorCodes() {
-			    return errorCodes.stream().map(Object::toString).collect(Collectors.joining(","));
+			    return errorCodes.stream().map(Objects::toString).collect(Collectors.joining(","));
 			}
 
 			/**
