@@ -92,7 +92,6 @@ class ModelGenerator implements IGenerator {
 			public Boolean isContextDependent();
 			public String getExtraContext();
 			public String getContext();
-			public String geterrorCodes();
 			«ENDIF»
 		«FOR attribute : entity.attributes»
 		
@@ -183,7 +182,6 @@ class ModelGenerator implements IGenerator {
 			*/
 			public static List<String> getListOfProperties(String objectName){
 				List<String> res = new ArrayList<String>();
-				res.add("errorCodes");
 				String currentObject = objectName;
 				
 				while(currentObject != null){
@@ -264,7 +262,6 @@ class ModelGenerator implements IGenerator {
 			
 			protected Boolean contextDependent = false;
 			private final String objectType;
-			private final Set<Integer> errorCodes = new HashSet<>();
 			
 			protected «GENERICMODELOBJECT_NAME»(String objectType) {
 				this.objectType = objectType;
@@ -296,20 +293,6 @@ class ModelGenerator implements IGenerator {
 			*/
 			public String getContext() {
 				return null;
-			}
-
-			/**
-			* @return comma separated list of error codes
-			*/
-			public String geterrorCodes() {
-			    return errorCodes.stream().map(Objects::toString).collect(Collectors.joining(","));
-			}
-
-			/**
-			* @return set of error codes
-			*/
-			public Set<Integer> getErrorCodes() {
-			    return errorCodes;
 			}
 			
 			/**
