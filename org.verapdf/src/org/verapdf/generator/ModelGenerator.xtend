@@ -213,20 +213,19 @@ class ModelGenerator implements IGenerator {
 				}
 				
 				return res;
-			}
-		
-			static {
 		«resource.appendDependenceClass»
 	'''
 	
 	def appendDependenceClass (Resource resource) '''
-			
-				«FOR e: resource.allContents.toIterable.filter(Entity)»
+		}
+
+		«FOR e: resource.allContents.toIterable.filter(Entity)»
+
+			private static void fillMapOfSuperNames«e.name»() {
 				mapOfSuperNames.put("«e.name»",«IF e.superType == null»null«ELSE»"«e.superType.name»"«ENDIF»);
-				«ENDFOR»
-				
-				«FOR e: resource.allContents.toIterable.filter(Entity)»
-				
+			}
+
+			private static void fillMapOfProperties«e.name»() {
 				properties = new ArrayList<String>();
 				«FOR prop: e.attributes»
 					«IF prop instanceof Property»
@@ -234,10 +233,9 @@ class ModelGenerator implements IGenerator {
 					«ENDIF»
 				«ENDFOR»
 				mapOfProperties.put("«e.name»",properties);
-				«ENDFOR»
-				
-				«FOR e: resource.allContents.toIterable.filter(Entity)»
-				
+			}
+
+			private static void fillMapOfLinks«e.name»() {
 				links = new ArrayList<String>();
 				«FOR link: e.attributes»
 					«IF link instanceof Link»
@@ -245,10 +243,16 @@ class ModelGenerator implements IGenerator {
 					«ENDIF»
 				«ENDFOR»
 				mapOfLinks.put("«e.name»",links);
-				«ENDFOR»
 			}
-			
-		}
+
+			static {
+				fillMapOfSuperNames«e.name»();
+				fillMapOfProperties«e.name»();
+				fillMapOfLinks«e.name»();
+			}
+
+		«ENDFOR»
+	}
 	'''
 	
 	def generateGenericModelObject(Entity e) '''
