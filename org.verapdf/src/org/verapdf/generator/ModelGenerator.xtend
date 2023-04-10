@@ -30,6 +30,32 @@ class ModelGenerator implements IGenerator {
 	@Inject extension IQualifiedNameProvider
 
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+		val JavaIoFileSystemAccess fsa1 = fsa as JavaIoFileSystemAccess
+		try{
+			val CharSequence is = fsa1.readTextFile(HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java")
+
+			var index = is.toString.lastIndexOf('}')
+			index = is.toString.substring(0, index).lastIndexOf('}')
+
+            var result = is.toString.substring(0,index)
+            for(e: resource.allContents.toIterable.filter(Entity)) {
+                if(result.contains("fillMapOfSuperNames" + e.name)){
+                    return
+                }
+            }
+
+            result += resource.appendDependenceClass
+			fsa.generateFile(
+			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
+			result
+			)
+		}catch(Exception e){
+			fsa.generateFile(
+			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
+			resource.getDependenceClass
+			)
+		}
+
 		for(e: resource.allContents.toIterable.filter(Entity)) {
 			val imports = resource.allContents.toIterable.filter(Import).toList;
 			fsa.generateFile(
@@ -44,26 +70,6 @@ class ModelGenerator implements IGenerator {
 				)
 			}
 		}
-		
-		val JavaIoFileSystemAccess fsa1 = fsa as JavaIoFileSystemAccess
-		
-		try{
-			val CharSequence is = fsa1.readTextFile(HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java")
-
-			var index = is.toString.lastIndexOf('}')
-			index = is.toString.substring(0, index).lastIndexOf('}')
-
-			fsa.generateFile(
-			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
-			is.toString.substring(0,index) + resource.appendDependenceClass			
-			)
-		}catch(Exception e){
-			fsa.generateFile(
-			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
-			resource.getDependenceClass			
-			)
-		}
-		
 	}
 	
 	def compile(Entity entity, List<Import> imports) '''
