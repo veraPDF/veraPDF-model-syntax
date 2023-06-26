@@ -1,9 +1,10 @@
 language: java
+sudo: required
+dist: bionic
 
 jdk:
-  - openjdk7
-  - oraclejdk7
-  - oraclejdk8
+  - openjdk11
+  - openjdk17
 
 install:
   - cd org.verapdf.releng

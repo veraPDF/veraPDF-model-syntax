@@ -30,6 +30,32 @@ class ModelGenerator implements IGenerator {
 	@Inject extension IQualifiedNameProvider
 
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+		val JavaIoFileSystemAccess fsa1 = fsa as JavaIoFileSystemAccess
+		try{
+			val CharSequence is = fsa1.readTextFile(HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java")
+
+			var index = is.toString.lastIndexOf('}')
+			index = is.toString.substring(0, index).lastIndexOf('}')
+
+            var result = is.toString.substring(0,index)
+            for(e: resource.allContents.toIterable.filter(Entity)) {
+                if(result.contains("fillMapOfSuperNames" + e.name)){
+                    return
+                }
+            }
+
+            result += resource.appendDependenceClass
+			fsa.generateFile(
+			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
+			result
+			)
+		}catch(Exception e){
+			fsa.generateFile(
+			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
+			resource.getDependenceClass
+			)
+		}
+
 		for(e: resource.allContents.toIterable.filter(Entity)) {
 			val imports = resource.allContents.toIterable.filter(Import).toList;
 			fsa.generateFile(
@@ -44,26 +70,6 @@ class ModelGenerator implements IGenerator {
 				)
 			}
 		}
-		
-		val JavaIoFileSystemAccess fsa1 = fsa as JavaIoFileSystemAccess
-		
-		try{
-			val CharSequence is = fsa1.readTextFile(HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java")
-
-			var index = is.toString.lastIndexOf('}')
-			index = is.toString.substring(0, index).lastIndexOf('}')
-
-			fsa.generateFile(
-			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
-			is.toString.substring(0,index) + resource.appendDependenceClass			
-			)
-		}catch(Exception e){
-			fsa.generateFile(
-			HELP_CLASSES_PASS + MODEL_HELPER_NAME + ".java",
-			resource.getDependenceClass			
-			)
-		}
-		
 	}
 	
 	def compile(Entity entity, List<Import> imports) '''
@@ -90,6 +96,8 @@ class ModelGenerator implements IGenerator {
 			public String getObjectType();
 			public String getID();
 			public Boolean isContextDependent();
+			public String getExtraContext();
+			public String getContext();
 			«ENDIF»
 		«FOR attribute : entity.attributes»
 		
@@ -180,7 +188,6 @@ class ModelGenerator implements IGenerator {
 			*/
 			public static List<String> getListOfProperties(String objectName){
 				List<String> res = new ArrayList<String>();
-				
 				String currentObject = objectName;
 				
 				while(currentObject != null){
@@ -212,20 +219,19 @@ class ModelGenerator implements IGenerator {
 				}
 				
 				return res;
-			}
-		
-			static {
 		«resource.appendDependenceClass»
 	'''
 	
 	def appendDependenceClass (Resource resource) '''
-			
-				«FOR e: resource.allContents.toIterable.filter(Entity)»
+		}
+
+		«FOR e: resource.allContents.toIterable.filter(Entity)»
+
+			private static void fillMapOfSuperNames«e.name»() {
 				mapOfSuperNames.put("«e.name»",«IF e.superType == null»null«ELSE»"«e.superType.name»"«ENDIF»);
-				«ENDFOR»
-				
-				«FOR e: resource.allContents.toIterable.filter(Entity)»
-				
+			}
+
+			private static void fillMapOfProperties«e.name»() {
 				properties = new ArrayList<String>();
 				«FOR prop: e.attributes»
 					«IF prop instanceof Property»
@@ -233,10 +239,9 @@ class ModelGenerator implements IGenerator {
 					«ENDIF»
 				«ENDFOR»
 				mapOfProperties.put("«e.name»",properties);
-				«ENDFOR»
-				
-				«FOR e: resource.allContents.toIterable.filter(Entity)»
-				
+			}
+
+			private static void fillMapOfLinks«e.name»() {
 				links = new ArrayList<String>();
 				«FOR link: e.attributes»
 					«IF link instanceof Link»
@@ -244,10 +249,16 @@ class ModelGenerator implements IGenerator {
 					«ENDIF»
 				«ENDFOR»
 				mapOfLinks.put("«e.name»",links);
-				«ENDFOR»
 			}
-			
-		}
+
+			static {
+				fillMapOfSuperNames«e.name»();
+				fillMapOfProperties«e.name»();
+				fillMapOfLinks«e.name»();
+			}
+
+		«ENDFOR»
+	}
 	'''
 	
 	def generateGenericModelObject(Entity e) '''
@@ -255,7 +266,8 @@ class ModelGenerator implements IGenerator {
 		
 		import «e.eContainer.fullyQualifiedName».«e.name»;
 		import java.util.*;
-		
+		import java.util.stream.Collectors;
+
 		public abstract class «GENERICMODELOBJECT_NAME» implements «e.name» {
 			
 			protected Boolean contextDependent = false;
@@ -276,6 +288,20 @@ class ModelGenerator implements IGenerator {
 			* @return id of the current object
 			*/
 			public String getID() {
+				return null;
+			}
+
+			/**
+			* @return extra context of the current object
+			*/
+			public String getExtraContext() {
+				return null;
+			}
+
+			/**
+			* @return context of the current object
+			*/
+			public String getContext() {
 				return null;
 			}
 			
@@ -321,12 +347,12 @@ class ModelGenerator implements IGenerator {
 		    }
 		«FOR attribute : e.attributes»
 		
-			«attribute.generateGetterForCenericModelObject»
+			«attribute.generateGetterForGenericModelObject»
 		«ENDFOR»
 		}
 	'''
 	
-	def generateGetterForCenericModelObject (Attribute attribute) '''
+	def generateGetterForGenericModelObject (Attribute attribute) '''
 		«IF (attribute instanceof Property)»
 		«IF (attribute.comment != null)»
 			«toJavaDocComment(attribute.comment)»
