@@ -9,7 +9,7 @@ Model:
 ;
 
 Entity:
-	(comment = COMMENT)*
+	(comment += COMMENT)*
 	'type' name = ID ('extends' superType = [Entity | QualifiedName])? '{'
 		(attributes += Attribute)*
 	'}'
@@ -20,12 +20,12 @@ Attribute:
 ;
 
 Property:
-	(comment = COMMENT)*
+	(comment += COMMENT)*
 	'property' name = ID ':' type = ('String' | 'Integer' | 'Decimal' | 'Boolean')';'
 ;
 
 Link:
-	(comment = COMMENT)*
+	(comment += COMMENT)*
 	'link' name = ID ':' type = [Entity | QualifiedName] (any ?= '*' | oneOrMore ?= '+' | zeroOrOne ?= '?')?';'
 ;
 
