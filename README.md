@@ -31,7 +31,7 @@ To get veraPDF-model support in Eclipse :
  1. Download the veraPDF-model-syntax repository, either cloning via Git
  `git clone https://github.com/veraPDF/veraPDF-model-syntax` or downloading the [latest zip archive from GitHub](https://github.com/veraPDF/veraPDF-model-syntax/archive/master.zip).
 
- 2. Copy the plugins from `veraPDF-model-syntax/eclipse_plugins` to `{eclipse_directory}/plugins`.
+ 2. Copy the plugins from `veraPDF-model-syntax/eclipse_plugins` to `{eclipse_directory}/dropins`. See [Equinox/p2/Getting Started](https://wiki.eclipse.org/Equinox/p2/Getting_Started#Dropins) for more details. 
 
  3. Restart Eclipse.
 
