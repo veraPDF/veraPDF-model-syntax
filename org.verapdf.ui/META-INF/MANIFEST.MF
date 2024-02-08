@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.verapdf.ui
 Bundle-Vendor: veraPDF Consortium
-Bundle-Version: 1.25.0
+Bundle-Version: 1.26.0
 Bundle-SymbolicName: org.verapdf.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.verapdf;visibility:=reexport,
