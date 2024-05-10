@@ -121,6 +121,9 @@ class ModelGenerator implements IGenerator {
 		    case "Decimal" : return "Double"
 		    case "String" : return "String"
 		    case "Boolean" : return "Boolean"
+		    case "Set<String>" : return "Set<String>"
+		    case "List<String>" : return "List<String>"
+		    case "List<List<String>>" : return "List<List<String>>"
 		}
     }
 	
