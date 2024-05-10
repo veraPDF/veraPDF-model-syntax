@@ -20,7 +20,7 @@ Pre-requisites
 
 In order to make use of the DSL support you'll require
 
- * Java 9 - 17, which can be downloaded [from Oracle](https://www.oracle.com/technetwork/java/javase/downloads/index.html), or for Linux users [OpenJDK](https://openjdk.java.net/install/index.html).
+ * Java 11 or 17, which can be downloaded [from Oracle](https://www.oracle.com/technetwork/java/javase/downloads/index.html), or for Linux users [OpenJDK](https://openjdk.java.net/install/index.html).
  * The [Eclipse IDE](https://eclipse.org/) with the [Xtext plug-in](https://eclipse.org/Xtext/download.html). If you haven't installed Eclipse then we recommend downloading the [Xtext Eclipse distribution](https://eclipse.org/Xtext/download.html).
 
 Installation of DSL Support in Eclipse
