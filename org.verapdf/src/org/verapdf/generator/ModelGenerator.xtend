@@ -124,8 +124,12 @@ class ModelGenerator implements IGenerator {
 		}
     }
 	
-	def toJavaDocComment (String comment) '''
-		/** «comment.substring(1)» */
+	def toJavaDocComment (List<String> comments) '''
+		/**
+		«FOR comment : comments»
+    		*«comment.substring(1)»
+		«ENDFOR»
+		*/
 	'''
 
 	def toInterfaceName (String name) '''I«name»'''

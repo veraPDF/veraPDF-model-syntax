@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.verapdf
 Bundle-Vendor: veraPDF Consortium
-Bundle-Version: 1.24.0
+Bundle-Version: 1.26.0
 Bundle-SymbolicName: org.verapdf; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="[2.26.0,2.27.0)";visibility:=reexport,
