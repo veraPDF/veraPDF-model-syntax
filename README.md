@@ -6,7 +6,7 @@ This project provides domain specific language support for the [veraPDF PDF/A an
 CI Status
 ---------
 
-[![Build Status](https://jenkins.openpreservation.org/job/veraPDF/job/1.27/job/model-syntax/badge/icon)](https://jenkins.openpreservation.org/job/veraPDF/job/1.27/job/model-syntax/ "OPF Jenkins")
+[![Build Status](https://jenkins.openpreservation.org/job/veraPDF/job/1.28rc/job/model-syntax/badge/icon)](https://jenkins.openpreservation.org/job/veraPDF/job/1.28rc/job/model-syntax/ "OPF Jenkins")
 [![Maven Central](https://img.shields.io/maven-central/v/org.verapdf/org.verapdf.svg)](https://repo1.maven.org/maven2/org/verapdf/org.verapdf/ "Maven central")
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a03dbd92b1724cd0a7636ea0245adc16)](https://app.codacy.com/gh/veraPDF/veraPDF-model-syntax/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade "Codacy coverage")
 
