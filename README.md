@@ -6,7 +6,7 @@ This project provides domain specific language support for the [veraPDF PDF/A an
 CI Status
 ---------
 
-[![Build Status](https://jenkins.openpreservation.org/job/veraPDF/job/1.26/job/model-syntax/badge/icon)](https://jenkins.openpreservation.org/job/veraPDF/job/1.26/job/model-syntax/ "OPF Jenkins")
+[![Build Status](https://jenkins.openpreservation.org/job/veraPDF/job/1.28/job/model-syntax/badge/icon)](https://jenkins.openpreservation.org/job/veraPDF/job/1.28/job/model-syntax/ "OPF Jenkins")
 [![Maven Central](https://img.shields.io/maven-central/v/org.verapdf/org.verapdf.svg)](https://repo1.maven.org/maven2/org/verapdf/org.verapdf/ "Maven central")
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a03dbd92b1724cd0a7636ea0245adc16)](https://app.codacy.com/gh/veraPDF/veraPDF-model-syntax/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade "Codacy coverage")
 
@@ -20,7 +20,7 @@ Pre-requisites
 
 In order to make use of the DSL support you'll require
 
- * Java 9 - 17, which can be downloaded [from Oracle](https://www.oracle.com/technetwork/java/javase/downloads/index.html), or for Linux users [OpenJDK](https://openjdk.java.net/install/index.html).
+ * Java 11 or 17, which can be downloaded [from Oracle](https://www.oracle.com/technetwork/java/javase/downloads/index.html), or for Linux users [OpenJDK](https://openjdk.java.net/install/index.html).
  * The [Eclipse IDE](https://eclipse.org/) with the [Xtext plug-in](https://eclipse.org/Xtext/download.html). If you haven't installed Eclipse then we recommend downloading the [Xtext Eclipse distribution](https://eclipse.org/Xtext/download.html).
 
 Installation of DSL Support in Eclipse
