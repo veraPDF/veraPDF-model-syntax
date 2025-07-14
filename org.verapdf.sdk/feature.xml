@@ -23,7 +23,7 @@
 -->
 <feature id="org.verapdf.sdk"
 	label="Model SDK Feature "
-	version="1.28.0">
+	version="1.28.1">
 	<plugin
 			id="org.verapdf"
 			download-size="0"
